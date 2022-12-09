@@ -2,62 +2,24 @@ package app
 
 import (
 	"context"
+	"github.com/doduyphat910/cubicasa-test/backend/app/config"
+	"github.com/doduyphat910/cubicasa-test/backend/app/external/framework/routes"
+	"github.com/urfave/cli/v2"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/gin-gonic/gin"
-	"github.com/urfave/cli/v2"
-
-	"github.com/doduyphat910/cubicasa-test/backend/config"
 )
-
-func Run() {
-	flags := []cli.Flag{
-		config.EnvFlag,
-		config.AppNameFlag,
-		config.AppPortFlag,
-		config.PGSQLHostFlag,
-		config.PGSQLPortFlag,
-		config.PGSQLUsernameFlag,
-		config.PGSQLPasswordFlag,
-		config.PGSQLNameFlag,
-		config.PGSQLMaxOpenConnsFlag,
-		config.PGSQLMaxIdleConnsFlag,
-		config.PGSQLConnMaxLifetimeFlag,
-		config.PGSQLIsEnabledLogFlag,
-	}
-
-	app := &cli.App{
-		Name:  "Cubicasa service",
-		Flags: flags,
-		Action: func(ctx *cli.Context) error {
-			start(ctx)
-			return nil
-		},
-	}
-
-	if err := app.Run(os.Args); err != nil {
-		log.Fatal(err)
-	}
-}
 
 func start(ctx *cli.Context) {
 	cfg := config.Init(ctx)
 	initDBConnection(cfg.PGSQL)
 
-	router := gin.Default()
-	router.GET("/", func(c *gin.Context) {
-		time.Sleep(5 * time.Second)
-		c.String(http.StatusOK, "Welcome Gin Server")
-	})
-
 	srv := &http.Server{
 		Addr:    ":" + cfg.App.Port,
-		Handler: router,
+		Handler: routes.Init(),
 	}
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {

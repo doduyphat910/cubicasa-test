@@ -2,7 +2,7 @@ package app
 
 import (
 	"fmt"
-	"github.com/doduyphat910/cubicasa-test/backend/config"
+	"github.com/doduyphat910/cubicasa-test/backend/app/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
