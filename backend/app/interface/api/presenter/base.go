@@ -1,18 +1,18 @@
 package presenter
 
 type Response struct {
-	Meta   Meta        `json:"meta,omitempty"`
-	Data   interface{} `json:"data,omitempty"`
-	Errors []Error     `json:"errors,omitempty"`
+	Meta     Meta        `json:"meta,omitempty"`
+	Data     interface{} `json:"data,omitempty"`
+	Messages []string    `json:"messages,omitempty"`
 }
 
 type Meta struct {
-	Code    string `json:"code,omitempty"`
+	Code    int    `json:"code,omitempty"`
 	Message string `json:"message,omitempty"`
 	Total   uint64 `json:"total,omitempty"`
 }
 
-type Error struct {
-	Code     int    `json:"code"`
-	Messages string `json:"message"`
+type Paging struct {
+	Size   uint64 `json:"size"`
+	Number uint64 `json:"number"`
 }

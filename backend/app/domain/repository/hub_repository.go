@@ -7,4 +7,5 @@ import (
 
 type HubRepository interface {
 	Create(ctx context.Context, hub entity.Hub) (entity.Hub, error)
+	GetByID(ctx context.Context, id uint64) (entity.Hub, error)
 }

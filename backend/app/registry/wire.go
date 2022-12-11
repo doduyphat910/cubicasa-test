@@ -12,3 +12,13 @@ func InjectedHubUseCase() usecase.HubUseCaser {
 	wire.Build(HubUseCaseSet)
 	return nil
 }
+
+func InjectedTeamUseCase() usecase.TeamUseCaser {
+	wire.Build(TeamUseCaseSet)
+	return nil
+}
+
+func InjectedUserUseCase() usecase.UserUseCaser {
+	wire.Build(UserUseCaseSet)
+	return nil
+}

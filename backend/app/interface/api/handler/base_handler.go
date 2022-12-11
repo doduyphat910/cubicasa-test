@@ -8,7 +8,7 @@ import (
 
 type BaseHandler struct{}
 
-func (handler *BaseHandler) SetMeta(ctx *gin.Context, meta *presenter.Meta) {
+func (handler *BaseHandler) SetMeta(ctx *gin.Context, meta presenter.Meta) {
 	ctx.Set(middleware.MetaContextKey, meta)
 }
 

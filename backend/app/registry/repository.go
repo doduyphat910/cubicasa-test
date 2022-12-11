@@ -9,6 +9,10 @@ import (
 var (
 	repositorySet = wire.NewSet(
 		pgsql.NewHubRepository,
-		wire.Bind(new(repository.HubRepository), new(pgsql.HubRepository)),
+		pgsql.NewTeamRepository,
+		pgsql.NewUserRepository,
+		wire.Bind(new(repository.HubRepository), new(*pgsql.HubRepository)),
+		wire.Bind(new(repository.TeamRepository), new(*pgsql.TeamRepository)),
+		wire.Bind(new(repository.UserRepository), new(*pgsql.UserRepository)),
 	)
 )

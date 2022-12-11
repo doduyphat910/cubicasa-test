@@ -18,3 +18,17 @@ func InjectedHubUseCase() usecase.HubUseCaser {
 	hubUseCase := usecase.NewHubUseCase(hubRepository)
 	return hubUseCase
 }
+
+func InjectedTeamUseCase() usecase.TeamUseCaser {
+	teamRepository := pgsql.NewTeamRepository()
+	hubRepository := pgsql.NewHubRepository()
+	teamUseCase := usecase.NewTeamUseCase(teamRepository, hubRepository)
+	return teamUseCase
+}
+
+func InjectedUserUseCase() usecase.UserUseCaser {
+	teamRepository := pgsql.NewTeamRepository()
+	userRepository := pgsql.NewUserRepository()
+	userUseCase := usecase.NewUserUseCase(teamRepository, userRepository)
+	return userUseCase
+}

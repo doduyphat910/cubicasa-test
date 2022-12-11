@@ -14,12 +14,16 @@ type HubUseCase struct {
 	hubRepo repository.HubRepository
 }
 
-func NewHubUseCase(hubRepo repository.HubRepository) HubUseCase {
-	return HubUseCase{
+func NewHubUseCase(hubRepo repository.HubRepository) *HubUseCase {
+	return &HubUseCase{
 		hubRepo: hubRepo,
 	}
 }
 
-func (uc HubUseCase) Create(ctx context.Context, hub entity.Hub) (entity.Hub, error) {
-	return entity.Hub{}, nil
+func (uc *HubUseCase) Create(ctx context.Context, hub entity.Hub) (entity.Hub, error) {
+	hubEnt, err := uc.hubRepo.Create(ctx, hub)
+	if err != nil {
+		return entity.Hub{}, err
+	}
+	return hubEnt, nil
 }

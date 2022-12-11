@@ -12,3 +12,6 @@ migrate-down:
 migration:
 	cd db;\
 	sql-migrate new $(fileName)
+
+gen:
+	@go generate ./...
