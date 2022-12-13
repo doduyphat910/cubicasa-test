@@ -174,7 +174,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/user/:id": {
+        "/user/{id}": {
             "get": {
                 "description": "Get user by id",
                 "consumes": [

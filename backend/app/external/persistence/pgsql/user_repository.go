@@ -36,5 +36,8 @@ func (repo *UserRepository) GetByID(ctx context.Context, id uint64) (aggregate.U
 		Where(&entity.User{ID: id}).
 		Scan(&userAggregate).Error
 
+	if userAggregate.User.ID == 0 {
+		return aggregate.UserAggregate{}, gorm.ErrRecordNotFound
+	}
 	return userAggregate, err
 }

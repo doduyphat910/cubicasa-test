@@ -9,6 +9,7 @@ import (
 	"github.com/doduyphat910/cubicasa-test/backend/app/utils"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
+	"gorm.io/gorm"
 	"regexp"
 	"testing"
 )
@@ -102,6 +103,22 @@ func TestUserRepository_GetByID(t *testing.T) {
 		diff := cmp.Diff(got, userAggregate)
 		if diff != "" {
 			t.Error(diff)
+		}
+	})
+	t.Run("get by id", func(t *testing.T) {
+		getUserQuery := "SELECT users.id, users.team_id, users.type, users.created_at, users.updated_at, " +
+			"teams.id, teams.hub_id, teams.geo_location, teams.created_at, teams.updated_at, " +
+			"hubs.id, hubs.name, hubs.created_at, hubs.updated_at " +
+			"FROM \"users\" join teams on team_id = users.team_id join hubs on teams.hub_id = hubs.id " +
+			"WHERE \"users\".\"id\" = $1"
+		mock.ExpectQuery(regexp.QuoteMeta(getUserQuery)).
+			WithArgs(id).
+			WillReturnError(gorm.ErrRecordNotFound)
+
+		_, err := repo.GetByID(context.Background(), id)
+		if err != gorm.ErrRecordNotFound {
+			t.Errorf("err:%v != wantErr: %v", err, gorm.ErrRecordNotFound)
+			return
 		}
 	})
 }

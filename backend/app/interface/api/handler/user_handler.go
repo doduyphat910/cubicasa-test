@@ -69,7 +69,7 @@ func (hdl *UserHandler) Create(ctx *gin.Context) {
 // @securityDefinitions.basic BasicAuth
 // @Param	 id   path   uint64 true    "ID of user"
 // @Success		200		{object}	presenter.GetByUserIDResponse
-// @Router		/user/:id [get]
+// @Router		/user/{id} [get]
 func (hdl *UserHandler) GetByID(ctx *gin.Context) {
 	var (
 		res presenter.GetByUserIDResponse
