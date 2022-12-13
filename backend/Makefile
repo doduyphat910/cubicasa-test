@@ -14,4 +14,6 @@ migration:
 	sql-migrate new $(fileName)
 
 gen:
-	@go generate ./...
+	@#go generate ./...
+	@swag init -g app/external/framework/routes/route.go -o app/interface/api/docs --exclude db,scripts,vendor
+

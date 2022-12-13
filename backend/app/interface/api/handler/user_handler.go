@@ -17,6 +17,15 @@ func NewUserHandler() *UserHandler {
 	return &UserHandler{}
 }
 
+// Create user
+// @Summary		Create user
+// @Description	Create user
+// @Tags		Users
+// @Accept   json
+// @Produce  json
+// @Param		body	body		presenter.CreateUserRequest	true "Body of request"
+// @Success		201		{object}	presenter.CreateUserResponse
+// @Router		/user [post]
 func (hdl *UserHandler) Create(ctx *gin.Context) {
 	var (
 		req presenter.CreateUserRequest
@@ -50,6 +59,15 @@ func (hdl *UserHandler) Create(ctx *gin.Context) {
 	hdl.SetData(ctx, res)
 }
 
+// GetByID user
+// @Summary		Get user by id
+// @Description	Get user by id
+// @Tags		Users
+// @Accept   json
+// @Produce  json
+// @Param	 id   path   uint64 true    "ID of user"
+// @Success		200		{object}	presenter.GetByUserIDResponse
+// @Router		/user/:id [get]
 func (hdl *UserHandler) GetByID(ctx *gin.Context) {
 	var (
 		res presenter.GetByUserIDResponse

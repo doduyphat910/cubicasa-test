@@ -16,6 +16,15 @@ func NewHubHandler() *HubHandler {
 	return &HubHandler{}
 }
 
+// Create hub
+// @Summary		Create hub
+// @Description	Create hub
+// @Tags		Hubs
+// @Accept   json
+// @Produce  json
+// @Param		body	body		presenter.CreateHubRequest	true "Body of request"
+// @Success		201		{object}	presenter.CreateHubResponse
+// @Router		/hub [post]
 func (hdl *HubHandler) Create(ctx *gin.Context) {
 	var (
 		req presenter.CreateHubRequest

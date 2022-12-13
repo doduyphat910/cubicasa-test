@@ -20,6 +20,15 @@ func NewTeamHandler() *TeamHandler {
 	return &TeamHandler{}
 }
 
+// Create team
+// @Summary		Create team
+// @Description	Create team
+// @Tags		Teams
+// @Accept   json
+// @Produce  json
+// @Param		body	body		presenter.CreateTeamRequest	true "Body of request"
+// @Success		201		{object}	presenter.CreateTeamResponse
+// @Router		/team [post]
 func (hdl *TeamHandler) Create(ctx *gin.Context) {
 	var (
 		req presenter.CreateTeamRequest
@@ -57,6 +66,17 @@ func (hdl *TeamHandler) Create(ctx *gin.Context) {
 	hdl.SetData(ctx, res)
 }
 
+// Search team
+// @Summary		Search team
+// @Description	Search team
+// @Tags		Teams
+// @Accept   json
+// @Produce  json
+// @Param    lat	query   float64 false "paging"
+// @Param    long  	query   float64 false "paging"
+// @Param    page  	query  	presenter.Paging false "paging"
+// @Success		200		{object}	presenter.CreateTeamResponse
+// @Router		/team/search [get]
 func (hdl *TeamHandler) Search(ctx *gin.Context) {
 	var (
 		reqPaging presenter.Paging
