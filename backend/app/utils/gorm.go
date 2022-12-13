@@ -35,7 +35,7 @@ type Paging struct{ Size, Number uint64 }
 
 func (paging *Paging) ParsePaging() {
 	switch {
-	case paging.Size == 0: // used for current have no paging, will remove in the future
+	case paging.Size == 0:
 		paging.Size = maxPageSize
 	case paging.Size > maxPageSize:
 		paging.Size = maxPageSize

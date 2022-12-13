@@ -17,10 +17,7 @@ func NewHubRepository() *HubRepository {
 
 func (repo *HubRepository) Create(ctx context.Context, hub entity.Hub) (entity.Hub, error) {
 	err := repo.db.Create(&hub).Error
-	if err != nil {
-		return entity.Hub{}, err
-	}
-	return hub, nil
+	return hub, err
 }
 
 func (repo *HubRepository) GetByID(ctx context.Context, id uint64) (entity.Hub, error) {

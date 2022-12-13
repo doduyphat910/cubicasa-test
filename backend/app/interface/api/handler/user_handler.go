@@ -64,32 +64,32 @@ func (hdl *UserHandler) GetByID(ctx *gin.Context) {
 	if err != nil {
 		return
 	}
-	user, err := registry.InjectedUserUseCase().GetByID(ctx, userID)
+	userAggregate, err := registry.InjectedUserUseCase().GetByID(ctx, userID)
 	if err != nil {
 		return
 	}
 	res = presenter.GetByUserIDResponse{
 		CreateUserResponse: presenter.CreateUserResponse{
-			ID:        user.ID,
-			TeamID:    user.TeamID,
-			Type:      user.Type,
-			CreatedAt: user.CreatedAt,
-			UpdatedAt: user.UpdatedAt,
+			ID:        userAggregate.User.ID,
+			TeamID:    userAggregate.User.TeamID,
+			Type:      userAggregate.User.Type,
+			CreatedAt: userAggregate.User.CreatedAt,
+			UpdatedAt: userAggregate.User.UpdatedAt,
 		},
 		SearchTeamResponse: presenter.SearchTeamResponse{
 			CreateTeamResponse: presenter.CreateTeamResponse{
-				ID:        user.Team.ID,
-				HubID:     user.Team.HubID,
-				Long:      user.Team.GeoLocation.Long,
-				Lat:       user.Team.GeoLocation.Lat,
-				CreatedAt: user.Team.CreatedAt,
-				UpdatedAt: user.Team.UpdatedAt,
+				ID:        userAggregate.Team.ID,
+				HubID:     userAggregate.Team.HubID,
+				Long:      userAggregate.Team.GeoLocation.Long,
+				Lat:       userAggregate.Team.GeoLocation.Lat,
+				CreatedAt: userAggregate.Team.CreatedAt,
+				UpdatedAt: userAggregate.Team.UpdatedAt,
 			},
 			Hub: presenter.CreateHubResponse{
-				ID:        user.Team.Hub.ID,
-				Name:      user.Team.Hub.Name,
-				CreatedAt: user.Team.Hub.CreatedAt,
-				UpdatedAt: user.Team.Hub.UpdatedAt,
+				ID:        userAggregate.Hub.ID,
+				Name:      userAggregate.Hub.Name,
+				CreatedAt: userAggregate.Hub.CreatedAt,
+				UpdatedAt: userAggregate.Hub.UpdatedAt,
 			},
 		},
 	}

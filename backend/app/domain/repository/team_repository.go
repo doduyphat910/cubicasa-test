@@ -6,6 +6,8 @@ import (
 	"github.com/doduyphat910/cubicasa-test/backend/app/utils"
 )
 
+//go:generate mockgen -destination=./mock/mock_$GOFILE -source=$GOFILE -package=mock
+
 type TeamRepository interface {
 	Create(ctx context.Context, team entity.Team) (entity.Team, error)
 	Search(ctx context.Context, geoLocation entity.GeoLocation, paging utils.Paging) ([]entity.Team, error)

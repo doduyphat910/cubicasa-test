@@ -2,13 +2,14 @@ package usecase
 
 import (
 	"context"
+	"github.com/doduyphat910/cubicasa-test/backend/app/domain/aggregate"
 	"github.com/doduyphat910/cubicasa-test/backend/app/domain/entity"
 	"github.com/doduyphat910/cubicasa-test/backend/app/domain/repository"
 )
 
 type UserUseCaser interface {
 	Create(ctx context.Context, user entity.User) (entity.User, error)
-	GetByID(ctx context.Context, id uint64) (entity.User, error)
+	GetByID(ctx context.Context, id uint64) (aggregate.UserAggregate, error)
 }
 
 type UserUseCase struct {
@@ -29,13 +30,10 @@ func (uc *UserUseCase) Create(ctx context.Context, user entity.User) (entity.Use
 		return entity.User{}, err
 	}
 	userEnt, err := uc.userRepo.Create(ctx, user)
-	if err != nil {
-		return entity.User{}, err
-	}
-	return userEnt, nil
+	return userEnt, err
 }
 
-func (uc *UserUseCase) GetByID(ctx context.Context, id uint64) (entity.User, error) {
+func (uc *UserUseCase) GetByID(ctx context.Context, id uint64) (aggregate.UserAggregate, error) {
 	user, err := uc.userRepo.GetByID(ctx, id)
 	return user, err
 }

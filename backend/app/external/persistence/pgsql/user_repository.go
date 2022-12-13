@@ -2,6 +2,7 @@ package pgsql
 
 import (
 	"context"
+	"github.com/doduyphat910/cubicasa-test/backend/app/domain/aggregate"
 	"github.com/doduyphat910/cubicasa-test/backend/app/domain/entity"
 	"github.com/doduyphat910/cubicasa-test/backend/app/utils"
 	"gorm.io/gorm"
@@ -17,20 +18,23 @@ func NewUserRepository() *UserRepository {
 
 func (repo *UserRepository) Create(ctx context.Context, user entity.User) (entity.User, error) {
 	err := repo.db.Create(&user).Error
-	if err != nil {
-		return entity.User{}, err
-	}
-	return user, nil
+	return user, err
 }
 
-func (repo *UserRepository) GetByID(ctx context.Context, id uint64) (entity.User, error) {
+func (repo *UserRepository) GetByID(ctx context.Context, id uint64) (aggregate.UserAggregate, error) {
 	var (
-		user entity.User
-		err  error
+		userAggregate aggregate.UserAggregate
+		err           error
 	)
-	err = repo.db.Joins("Team").Preload("Team.Hub").
-		Where(&entity.User{ID: id}).
-		Find(&user).Error
 
-	return user, err
+	err = repo.db.Model(&entity.User{}).
+		Select("users.id, users.team_id, users.type, users.created_at, users.updated_at, " +
+			"teams.id, teams.hub_id, teams.geo_location, teams.created_at, teams.updated_at, " +
+			"hubs.id, hubs.name, hubs.created_at, hubs.updated_at").
+		Joins("join teams on team_id = users.team_id").
+		Joins("join hubs on teams.hub_id = hubs.id").
+		Where(&entity.User{ID: id}).
+		Scan(&userAggregate).Error
+
+	return userAggregate, err
 }

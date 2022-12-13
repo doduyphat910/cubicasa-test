@@ -30,10 +30,7 @@ func (uc *TeamUseCase) Create(ctx context.Context, team entity.Team) (entity.Tea
 		return entity.Team{}, err
 	}
 	teamEnt, err := uc.teamRepo.Create(ctx, team)
-	if err != nil {
-		return entity.Team{}, err
-	}
-	return teamEnt, nil
+	return teamEnt, err
 }
 
 func (uc *TeamUseCase) Search(ctx context.Context, dtoReq dto.SearchTeamRequest) ([]entity.Team, error) {
