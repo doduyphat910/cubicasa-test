@@ -23,12 +23,12 @@ services:
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
       PGADMIN_CONFIG_SERVER_MODE: 'False'
     volumes:
-       - ./pgadmin:/var/lib/pgadmin
+      - ./pgadmin:/var/lib/pgadmin
     links:
       - db
     ports:
       - "${PGADMIN_PORT:-5050}:80"
-    
+
   app:
     container_name: cubi_app
     image: golang:latest
@@ -38,6 +38,13 @@ services:
     environment:
       - GOPATH=/go
       - GO111MODULE=on
+      - APP_PORT=8080
+      - PGSQL_HOST=db
+      - PGSQL_DB=cubicasa_test
+      - PGSQL_USERNAME=cubicasa
+      - PGSQL_PASSWORD=cubicasa
+      - BASIC_AUTH_USERNAME=cubicasa
+      - BASIC_AUTH_PASSWORD=cubicasa
     ports:
       - 8000:8080
     tty: true
@@ -45,7 +52,8 @@ services:
       - db
     command: bash -c "
         cd /go/src/backend/
-        && go mod tidy
-        && go mod download
-        && go run app/main.go
+        && apt install make
+        && make install
+        && make mod
+        && go run cmd/main.go
       "

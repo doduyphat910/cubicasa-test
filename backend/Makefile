@@ -1,6 +1,8 @@
 mod:
 	@go mod tidy
 	@go mod vendor
+install:
+	@go install github.com/rubenv/sql-migrate/...@latest
 
 MIG_ENV ?= development
 migrate-up:

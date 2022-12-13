@@ -23,9 +23,14 @@ type PGSQL struct {
 }
 
 type Config struct {
-	Env   string
-	App   App
-	PGSQL PGSQL
+	Env       string
+	App       App
+	PGSQL     PGSQL
+	BasicAuth BasicAuth
+}
+type BasicAuth struct {
+	Username string
+	Password string
 }
 
 var (
@@ -51,11 +56,19 @@ func Init(ctx *cli.Context) *Config {
 			ConnMaxLifetime: ctx.Int(PGSQLConnMaxLifetimeFlag.Name),
 			IsEnabledLog:    ctx.Bool(PGSQLIsEnabledLogFlag.Name),
 		},
+		BasicAuth: BasicAuth{
+			Username: ctx.String(BasicAuthUsernameFlag.Name),
+			Password: ctx.String(BasicAuthPasswordFlag.Name),
+		},
 	}
 
 	configOnce.Do(func() {
 		singletonConfig = conf
 	})
 
+	return singletonConfig
+}
+
+func GetConfig() *Config {
 	return singletonConfig
 }
