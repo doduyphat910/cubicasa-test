@@ -22,6 +22,7 @@ func NewHubHandler() *HubHandler {
 // @Tags		Hubs
 // @Accept   json
 // @Produce  json
+// @securityDefinitions.basic BasicAuth
 // @Param		body	body		presenter.CreateHubRequest	true "Body of request"
 // @Success		201		{object}	presenter.CreateHubResponse
 // @Router		/hub [post]

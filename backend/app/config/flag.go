@@ -82,3 +82,18 @@ var (
 		Value:   true,
 	}
 )
+
+var (
+	BasicAuthUsernameFlag = &cli.StringFlag{
+		Name:    "basic_auth_username",
+		Usage:   "for internal API",
+		EnvVars: []string{"BASIC_AUTH_USERNAME"},
+		Value:   "cubicasa",
+	}
+	BasicAuthPasswordFlag = &cli.StringFlag{
+		Name:    "basic_auth_password",
+		Usage:   "for internal API",
+		EnvVars: []string{"BASIC_AUTH_PASSWORD"},
+		Value:   "cubicasa",
+	}
+)

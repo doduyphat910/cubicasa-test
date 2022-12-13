@@ -23,6 +23,7 @@ func NewUserHandler() *UserHandler {
 // @Tags		Users
 // @Accept   json
 // @Produce  json
+// @securityDefinitions.basic BasicAuth
 // @Param		body	body		presenter.CreateUserRequest	true "Body of request"
 // @Success		201		{object}	presenter.CreateUserResponse
 // @Router		/user [post]
@@ -65,6 +66,7 @@ func (hdl *UserHandler) Create(ctx *gin.Context) {
 // @Tags		Users
 // @Accept   json
 // @Produce  json
+// @securityDefinitions.basic BasicAuth
 // @Param	 id   path   uint64 true    "ID of user"
 // @Success		200		{object}	presenter.GetByUserIDResponse
 // @Router		/user/:id [get]

@@ -21,6 +21,8 @@ func Run() {
 		config.PGSQLMaxIdleConnsFlag,
 		config.PGSQLConnMaxLifetimeFlag,
 		config.PGSQLIsEnabledLogFlag,
+		config.BasicAuthUsernameFlag,
+		config.BasicAuthPasswordFlag,
 	}
 
 	app := &cli.App{

@@ -26,6 +26,7 @@ func NewTeamHandler() *TeamHandler {
 // @Tags		Teams
 // @Accept   json
 // @Produce  json
+// @securityDefinitions.basic BasicAuth
 // @Param		body	body		presenter.CreateTeamRequest	true "Body of request"
 // @Success		201		{object}	presenter.CreateTeamResponse
 // @Router		/team [post]
@@ -72,6 +73,7 @@ func (hdl *TeamHandler) Create(ctx *gin.Context) {
 // @Tags		Teams
 // @Accept   json
 // @Produce  json
+// @securityDefinitions.basic BasicAuth
 // @Param    lat	query   float64 false "paging"
 // @Param    long  	query   float64 false "paging"
 // @Param    page  	query  	presenter.Paging false "paging"
