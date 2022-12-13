@@ -1,0 +1,213 @@
+definitions:
+  presenter.CreateHubRequest:
+    properties:
+      name:
+        type: string
+    type: object
+  presenter.CreateHubResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  presenter.CreateTeamRequest:
+    properties:
+      hub_id:
+        type: integer
+      lat:
+        type: number
+      long:
+        type: number
+    type: object
+  presenter.CreateTeamResponse:
+    properties:
+      created_at:
+        type: string
+      hub_id:
+        type: integer
+      id:
+        type: integer
+      lat:
+        type: number
+      long:
+        type: number
+      updated_at:
+        type: string
+    type: object
+  presenter.CreateUserRequest:
+    properties:
+      team_id:
+        type: integer
+      type:
+        type: string
+    type: object
+  presenter.CreateUserResponse:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      team_id:
+        type: integer
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  presenter.GetByUserIDResponse:
+    properties:
+      created_at:
+        type: string
+      hub:
+        $ref: '#/definitions/presenter.CreateHubResponse'
+      hub_id:
+        type: integer
+      id:
+        type: integer
+      lat:
+        type: number
+      long:
+        type: number
+      team_id:
+        type: integer
+      type:
+        type: string
+      updated_at:
+        type: string
+    type: object
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is the project of Cubicasa-test
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Cubicasa-test
+  version: "1.0"
+paths:
+  /hub:
+    post:
+      consumes:
+      - application/json
+      description: Create hub
+      parameters:
+      - description: Body of request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/presenter.CreateHubRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/presenter.CreateHubResponse'
+      summary: Create hub
+      tags:
+      - Hubs
+  /team:
+    post:
+      consumes:
+      - application/json
+      description: Create team
+      parameters:
+      - description: Body of request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/presenter.CreateTeamRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/presenter.CreateTeamResponse'
+      summary: Create team
+      tags:
+      - Teams
+  /team/search:
+    get:
+      consumes:
+      - application/json
+      description: Search team
+      parameters:
+      - description: paging
+        in: query
+        name: lat
+        type: number
+      - description: paging
+        in: query
+        name: long
+        type: number
+      - in: query
+        name: number
+        type: integer
+      - in: query
+        name: size
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/presenter.CreateTeamResponse'
+      summary: Search team
+      tags:
+      - Teams
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: Create user
+      parameters:
+      - description: Body of request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/presenter.CreateUserRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/presenter.CreateUserResponse'
+      summary: Create user
+      tags:
+      - Users
+  /user/:id:
+    get:
+      consumes:
+      - application/json
+      description: Get user by id
+      parameters:
+      - description: ID of user
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/presenter.GetByUserIDResponse'
+      summary: Get user by id
+      tags:
+      - Users
+swagger: "2.0"
